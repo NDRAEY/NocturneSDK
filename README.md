@@ -1,2 +1,2 @@
-# SayoriSDK
-SayoriOS SDK - комплект инструментов для работы с ядром.
+# NocturneSDK
+NocturneOS SDK - modular toolkit for working with compilers that doesn't implement a support for NocturneOS.
