@@ -1,0 +1,8 @@
+*.o
+*.a
+*.pyc
+*.d
+*.bin
+*.elf
+a.out
+build/

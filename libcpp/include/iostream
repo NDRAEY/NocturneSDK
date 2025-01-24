@@ -1,0 +1,63 @@
+// -*- C++ -*-
+
+#pragma once
+
+extern "C" {
+	#include "../../libc/include/printf.h"
+}
+
+namespace std {
+	class ostream {
+	public:
+		using print_func = void(*)(const char*);
+		using manip_func = ostream&(*)(ostream&);
+
+		ostream(print_func fn) : _print_fn(fn) {};
+		~ostream() = default;
+
+	        ostream& operator<<(const char* msg) {
+        		_print_fn(msg);
+            		return *this;
+        	}
+
+	        ostream& operator<<(char ch) {
+        		char msg[2] = {ch, 0};
+			_print_fn(msg);
+            		return *this;
+        	}
+
+		ostream& operator<<(manip_func fn) {
+			return fn(*this);
+		}
+
+		ostream& operator<<(int i) {
+			char data[32] = {};
+
+			sprintf(data, "%d", i);
+
+			_print_fn(data);
+
+			return *this;
+		}
+
+		ostream& operator<<(unsigned int i) {
+			char data[32] = {};
+
+			sprintf(data, "%u", i);
+
+			_print_fn(data);
+
+			return *this;
+		}
+	private:
+		print_func _print_fn;
+	};
+
+	extern ostream cerr;
+	extern ostream cout;
+
+	ostream& endl(ostream& stream);
+}
+
+extern "C" void __cpp_init();
+
