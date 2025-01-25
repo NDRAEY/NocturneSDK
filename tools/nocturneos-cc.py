@@ -50,6 +50,7 @@ def main():
     parser.add_argument('--verbose', action='store_true', help='Be verbose')
     parser.add_argument('-c', action='store_true', help='Compile into object file')
     parser.add_argument('-o', help='Output file')
+    parser.add_argument('--flags', help='Additional flags to compiler', default="", type=str)
     parser.add_argument('input_file', help="Compiler command and arguments")
 
     # Parse command line arguments.
@@ -84,12 +85,17 @@ def main():
         print("COMMAND =>", cc, *nargs)
 
     # Run compiler
-    subprocess.call([cc,
-                     *nargs,
-                     args.input_file,
-                     "-o",
-                     args.o + ".o"
-                     ])
+    status = subprocess.call([cc,
+                             *nargs,
+                             *args.flags,
+                             args.input_file,
+                             "-o",
+                             args.o + ".o"
+                             ])
+
+    if status != 0:
+        print("Compilation failed")
+        exit(status)
 
     # If we are compiling into a program instead of object, we run linker then.
     if not settings["is_output_object"]:
