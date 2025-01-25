@@ -16,7 +16,7 @@ set(FILES
         src/file.c
         src/syscall.c)
 
-set(CMAKE_C_FLAGS "-fno-pic -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include")
+set(CMAKE_C_FLAGS "-fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(NocturneC STATIC ${FILES})

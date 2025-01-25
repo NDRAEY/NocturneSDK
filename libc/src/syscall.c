@@ -11,7 +11,7 @@
 
 int _syscall(size_t num, size_t p1, size_t p2, size_t p3) {
   int result = 0;
-  __asm__ volatile("int $0x50"
+  __asm__ volatile("int $0x80"
                : "=a"(result)
                : "a"(num),
                  "b"(p1),
