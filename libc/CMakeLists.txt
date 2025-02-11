@@ -9,6 +9,7 @@ set(FILES
         src/string.c
         src/timer.c
         src/env.c
+        src/rand.c
         src/memory.c
         src/exit.c
         src/keyboard.c

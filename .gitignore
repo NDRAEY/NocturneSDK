@@ -6,3 +6,4 @@
 *.elf
 a.out
 build/
+debug/
