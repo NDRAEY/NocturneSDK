@@ -71,7 +71,7 @@ def main():
         if len(splitted_args) == 1:
             args.o = splitted_args[0]
         else:
-            args.o = '.'.join(splitted_args)
+            args.o = '.'.join(splitted_args[:-1])
 
         if args.c:
             args.o += ".o"
