@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 project(NocturneLibC VERSION 0.1.0 LANGUAGES C ASM)
 
 set(FILES 
+        src/__init.S
         src/tty.c
         src/time.c
         src/trigger.c
@@ -15,8 +16,9 @@ set(FILES
         src/keyboard.c
         src/printf.c
         src/file.c
-        src/__init.S
-        src/syscall.c)
+        src/syscall.c
+        src/mouse.c
+)
 
 set(CMAKE_ASM_FLAGS "-m32 -g")
 set(CMAKE_C_FLAGS "-fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include")
