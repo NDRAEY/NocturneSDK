@@ -5,7 +5,6 @@ set(FILES
         src/__init.S
         src/tty.c
         src/time.c
-        src/trigger.c
         src/syscall.c
         src/string.c
         src/timer.c
