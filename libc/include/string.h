@@ -4,7 +4,6 @@
 #pragma once
 
 #include "stddef.h"
-#include "stdbool.h"
 
 SAYORI_INLINE bool isdigit(char a) {
     return a >= '0' && a <= '9';
