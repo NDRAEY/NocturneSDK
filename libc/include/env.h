@@ -2,8 +2,6 @@
 
 #include "stdint.h"
 
-#define ENV_GET_SYSCALL 0
-
 typedef struct env {
     int OS_VERSION_ENV;                   ///< Версия ENV
     int OS_VERSION_MAJOR;                 ///< Версия ядра

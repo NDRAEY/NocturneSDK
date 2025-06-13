@@ -2,8 +2,6 @@
 
 #include "stdint.h"
 
-#define DATETIME_SYSCALL 16
-
 typedef struct sayori_time {
 	uint8_t seconds;
     uint8_t minutes;

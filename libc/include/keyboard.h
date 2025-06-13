@@ -6,6 +6,4 @@
 
 #include "stdint.h"
 
-#define KEYBOARD_GETKEY_SYSCALL 13
-
 size_t getkey();
