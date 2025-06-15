@@ -102,6 +102,7 @@ def main():
         subprocess.call([
             "ld.lld",
             args.o + ".o",
+            f"{get_absolute_sdk_path()}/../nocturneos/lib/libNocturneCrti.a",
             f"{get_absolute_sdk_path()}/../nocturneos/lib/libNocturneC.a",
             f"-T{get_absolute_sdk_path()}/../nocturneos/share/link.ld",
             "-o",
