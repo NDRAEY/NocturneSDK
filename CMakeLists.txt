@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 project(NocturneSDK VERSION 0.1)
 
 add_subdirectory(libc/)
+add_subdirectory(libm/)
 
 install(FILES ${CMAKE_SOURCE_DIR}/tools/nocturneos-cc.py
         DESTINATION ./bin/

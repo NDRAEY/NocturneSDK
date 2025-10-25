@@ -6,14 +6,12 @@
 #include "syscall.h"
 
 size_t ticks() {
-    return _syscall(
+    return _syscall1(
             TIMER_GET_TICKS_SYSCALL,
-            0,
-            0,
             0
             );
 }
 
 void sleep(uint32_t millis) {
-    _syscall(TIMER_SLEEP_SYSCALL, millis, 0, 0);
+    _syscall1(TIMER_SLEEP_SYSCALL, millis);
 }

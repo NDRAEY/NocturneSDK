@@ -4,7 +4,7 @@
 env_t getenv() {
     env_t env;
 
-    _syscall(ENV_GET_SYSCALL, (size_t) &env, 0, 0);
+    _syscall1(ENV_GET_SYSCALL, (size_t) &env);
 
     return env;
 }

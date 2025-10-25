@@ -3,7 +3,7 @@
 
 int fd_open(const char* filename, size_t mode) {
     int fd = 0;
-    _syscall(
+    _syscall3(
             SYSCALL_FILE_DESCR_OPEN,
             (size_t) filename,
             mode,
@@ -14,7 +14,7 @@ int fd_open(const char* filename, size_t mode) {
 }
 
 void fd_seek(int fd, size_t off, size_t whence) {
-    _syscall(
+    _syscall3(
             SYSCALL_FILE_DESCR_SEEK,
             fd,
             off,
@@ -24,18 +24,17 @@ void fd_seek(int fd, size_t off, size_t whence) {
 
 int fd_tell(int fd) {
     int value = 0;
-    _syscall(
+    _syscall2(
             SYSCALL_FILE_DESCR_TELL,
             fd,
-            (size_t)&value,
-            0
+            (size_t)&value
     );
 
     return value;
 }
 
 void fd_read(int fd, size_t size, size_t count, void* buffer) {
-    _syscall(
+    _syscall3(
             SYSCALL_FILE_DESCR_READ,
             (size_t) fd,
             size * count,
@@ -44,7 +43,7 @@ void fd_read(int fd, size_t size, size_t count, void* buffer) {
 }
 
 void fd_write(int fd, size_t size, size_t count, const void* buffer) {
-    _syscall(
+    _syscall3(
             SYSCALL_FILE_DESCR_WRITE,
             (size_t) fd,
             size * count,
@@ -53,10 +52,8 @@ void fd_write(int fd, size_t size, size_t count, const void* buffer) {
 }
 
 void fd_close(int fd) {
-    _syscall(
+    _syscall1(
             SYSCALL_FILE_DESCR_CLOSE,
-            (size_t) fd,
-            0,
-            0
+            (size_t) fd
             );
 }

@@ -1,0 +1,11 @@
+-O0
+-nostdlib
+-fno-stack-protector
+-fno-builtin
+-I../libc/include/
+-Iinclude/
+-ffreestanding
+-Wall
+-Wextra
+-mno-red-zone
+-m32

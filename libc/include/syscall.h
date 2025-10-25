@@ -1,6 +1,6 @@
 #pragma once
 
-#include "stdint.h"
+#include "stddef.h"
 
 #define ENV_GET_SYSCALL 0
 #define MEMORY_ALLOC_SYSCALL 3
@@ -16,5 +16,8 @@
 #define EXIT_SYSCALL 20
 #define TIMER_SLEEP_SYSCALL 24
 
-
-int _syscall(size_t num, size_t p1, size_t p2, size_t p3);
+size_t _syscall1(size_t num, size_t p1);
+size_t _syscall2(size_t num, size_t p1, size_t p2);
+size_t _syscall3(size_t num, size_t p1, size_t p2, size_t p3);
+size_t _syscall4(size_t num, size_t p1, size_t p2, size_t p3, size_t p4);
+size_t _syscall5(size_t num, size_t p1, size_t p2, size_t p3, size_t p4, size_t p5);

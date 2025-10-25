@@ -21,7 +21,7 @@ set(FILES
 )
 
 set(CMAKE_ASM_FLAGS "-m32 -g")
-set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include")
+set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include -I${CMAKE_SOURCE_DIR}/libm/include")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(NocturneCrti STATIC ${RUNTIME_INIT_FILES})

@@ -447,7 +447,7 @@ int snprintf(char* buffer, size_t n, const char* format, ...) {
 void __print(const char* format, va_list args) {
     char* a = 0;
     vasprintf(&a, format, args);
-    _tty_puts(a);
+    _tty_write_nulterminated(a);
     free(a);
 }
 

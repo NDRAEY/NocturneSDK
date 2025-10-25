@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdint.h"
+#include "stddef.h"
 
 typedef struct env {
     int OS_VERSION_ENV;                   ///< Версия ENV

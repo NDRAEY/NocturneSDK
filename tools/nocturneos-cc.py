@@ -51,7 +51,7 @@ def main():
     parser.add_argument('-c', action='store_true', help='Compile into object file')
     parser.add_argument('-o', help='Output file')
     parser.add_argument('--flags', help='Additional flags to compiler', default="", type=str)
-    parser.add_argument('input_file', help="Compiler command and arguments")
+    parser.add_argument('input_file', nargs='+', help="Compiler command and arguments")
 
     # Parse command line arguments.
     args: argparse.Namespace = parser.parse_args()
@@ -66,15 +66,17 @@ def main():
     }
 
     if not args.o:
-        splitted_args = args.input_file.split(".")
-
-        if len(splitted_args) == 1:
-            args.o = splitted_args[0]
-        else:
-            args.o = '.'.join(splitted_args[:-1])
-
         if args.c:
+            splitted_args = args.input_file.split(".")
+
+            if len(splitted_args) == 1:
+                args.o = splitted_args[0]
+            else:
+                args.o = '.'.join(splitted_args[:-1])
+
             args.o += ".o"
+        else:
+            args.o = "a.out"
 
     nargs = generate_compiler_commands_from_settings(
                     settings,
@@ -84,14 +86,19 @@ def main():
     if args.verbose:
         print("COMMAND =>", cc, *nargs)
 
-    # Run compiler
-    status = subprocess.call([cc,
+    commands = [cc,
                              *nargs,
-                             *args.flags,
-                             args.input_file,
+                             args.flags,
+                             *args.input_file,
                              "-o",
                              args.o + ".o"
-                             ])
+                             ]
+
+    commands = [command for command in commands if command]
+
+    print(commands)
+    # Run compiler
+    status = subprocess.call(commands)
 
     if status != 0:
         print("Compilation failed")

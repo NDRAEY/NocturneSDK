@@ -2,11 +2,9 @@
 #include "exit.h"
 
 __attribute__((noreturn)) void exit(int status) {
-	_syscall(
+	_syscall1(
             EXIT_SYSCALL,
-            status,
-            0,
-            0
+            status
             );
 
 	while(1)

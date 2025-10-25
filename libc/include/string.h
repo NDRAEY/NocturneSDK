@@ -35,7 +35,7 @@ char *strchr(const char *_s, char _c);
 void strtolower(char* as);
 void strtoupper(char* as);
 bool isNumber(const char* c);
-uint32_t atoi(const char s[]);
+int atoi(const char* s);
 void strver(char *str);
 size_t itoa(int32_t n, char *buffer);
 size_t itou(size_t n, char *buffer);

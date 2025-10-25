@@ -16,4 +16,13 @@
 
 #define ON_NULLPTR(_, __)
 
+#include <stdint.h>
+
+typedef uint32_t size_t;
+typedef int32_t ssize_t;
+
+typedef int32_t wchar_t;
+
+typedef ssize_t ptrdiff_t;
+
 #endif //SAYORISDK_STDDEF_H

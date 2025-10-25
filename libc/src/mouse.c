@@ -2,5 +2,5 @@
 #include <syscall.h>
 
 void mouse_get(uint32_t* out_x, uint32_t* out_y, uint32_t* flags) {
-    _syscall(MOUSE_GET_SYSCALL, (size_t)out_x, (size_t)out_y, (size_t)flags);
+    _syscall3(MOUSE_GET_SYSCALL, (size_t)out_x, (size_t)out_y, (size_t)flags);
 }

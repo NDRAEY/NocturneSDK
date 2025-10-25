@@ -458,7 +458,7 @@ bool isNumber(const char* c) {
  *
  * @return uint32_t - Число
  */
-uint32_t atoi(const char s[]){
+int atoi(const char* s){
     int i = 0, n = 0;
     bool minus = *s == '-';
 
