@@ -16,6 +16,10 @@
 #define EXIT_SYSCALL 20
 #define TIMER_SLEEP_SYSCALL 24
 
+#define GET_SCREEN_PARAMETERS_SYSCALL 26
+#define COPY_TO_SCREEN_SYSCALL 27
+#define COPY_FROM_SCREEN_SYSCALL 28
+
 size_t _syscall1(size_t num, size_t p1);
 size_t _syscall2(size_t num, size_t p1, size_t p2);
 size_t _syscall3(size_t num, size_t p1, size_t p2, size_t p3);

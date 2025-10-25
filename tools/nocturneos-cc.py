@@ -49,6 +49,7 @@ def main():
     # Capture all arguments that come after '--' (for the compiler)
     parser.add_argument('--verbose', action='store_true', help='Be verbose')
     parser.add_argument('--print-sdk-path', action='store_true', help='Print SDK path and exit')
+    parser.add_argument('--linclude', default="", type=str, help='Include other Nocturne libraries (for example --linclude="M" will add libNocturneM.a (math library))')
     parser.add_argument('-c', action='store_true', help='Compile into object file')
     parser.add_argument('-o', help='Output file')
     parser.add_argument('--flags', help='Additional flags to compiler', default="", type=str)
@@ -76,14 +77,12 @@ def main():
 
     if not args.o:
         if args.c:
-            splitted_args = args.input_file.split(".")
+            splitted_args = args.input_file[-1].split("/")[-1].split(".")
 
             if len(splitted_args) == 1:
                 args.o = splitted_args[0]
             else:
                 args.o = '.'.join(splitted_args[:-1])
-
-            args.o += ".o"
         else:
             args.o = "a.out"
 
@@ -113,6 +112,8 @@ def main():
         print("Compilation failed")
         exit(status)
 
+    add_libs: list[str] = args.linclude.split(',')
+
     # If we are compiling into a program instead of object, we run linker then.
     if not settings["is_output_object"]:
         subprocess.call([
@@ -120,6 +121,7 @@ def main():
             args.o + ".o",
             f"{get_absolute_sdk_path()}/lib/libNocturneCrti.a",
             f"{get_absolute_sdk_path()}/lib/libNocturneC.a",
+            *[f"{get_absolute_sdk_path()}/lib/libNocturne{lib}.a" for lib in add_libs if lib],
             f"-T{get_absolute_sdk_path()}/share/link.ld",
             "-o",
             args.o
