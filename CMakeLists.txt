@@ -5,7 +5,7 @@ add_subdirectory(libc/)
 add_subdirectory(libm/)
 
 install(FILES ${CMAKE_SOURCE_DIR}/tools/nocturneos-cc.py
-        DESTINATION ./bin/
+        DESTINATION /usr/local/nocturneos/bin
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
                     GROUP_EXECUTE GROUP_READ
                     WORLD_EXECUTE WORLD_READ)

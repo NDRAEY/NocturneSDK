@@ -1,7 +1,7 @@
-#ifndef SAYORISDK_PRINTF_H
-#define SAYORISDK_PRINTF_H
+#pragma once
 
 #include <stdarg.h>
+#include "stddef.h"
 #include "stdint.h"
 
 size_t measure_vsprintf(const char *format, va_list args);
@@ -17,5 +17,3 @@ int vsnprintf(char* buffer, size_t n, const char* format, va_list args);
 int snprintf(char* buffer, size_t n, const char* format, ...);
 
 void printf(const char *text, ...);
-
-#endif //SAYORISDK_PRINTF_H

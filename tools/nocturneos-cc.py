@@ -10,13 +10,13 @@ import subprocess
 def get_absolute_sdk_path():
     p = pathlib.Path(os.path.dirname(os.path.realpath(__file__)))
 
-    return p
+    return p.parent
 
 
 def generate_compiler_commands_from_settings(settings: dict[str, str],
                                              input_file: str,
                                              output_file: str) -> list[str]:
-    commands = []
+    commands: list[str] = []
     commands += ["-nostdlib", "-fno-builtin", "-ggdb3", "-O0"]
     commands += ["-fno-pie"]
     commands += ["-m32", "-march=i386"]  # Force generate 32-bit code
@@ -48,19 +48,28 @@ def main():
 
     # Capture all arguments that come after '--' (for the compiler)
     parser.add_argument('--verbose', action='store_true', help='Be verbose')
+    parser.add_argument('--print-sdk-path', action='store_true', help='Print SDK path and exit')
     parser.add_argument('-c', action='store_true', help='Compile into object file')
     parser.add_argument('-o', help='Output file')
     parser.add_argument('--flags', help='Additional flags to compiler', default="", type=str)
-    parser.add_argument('input_file', nargs='+', help="Compiler command and arguments")
+    parser.add_argument('input_file', nargs='*', help="Compiler command and arguments")
 
     # Parse command line arguments.
     args: argparse.Namespace = parser.parse_args()
+
+    if args.print_sdk_path:
+        print(get_absolute_sdk_path())
+        exit(0)
+
+    if not args.input_file:
+        print("error: no input file")
+        exit(1)
 
     # Inject custom arguments
 
     cc = "gcc"
 
-    settings = {
+    settings: dict[str, str] = {
         "compiler_flavor": cc,
         "is_output_object": args.c
     }
@@ -86,7 +95,7 @@ def main():
     if args.verbose:
         print("COMMAND =>", cc, *nargs)
 
-    commands = [cc,
+    commands: list[str] = [cc,
                              *nargs,
                              args.flags,
                              *args.input_file,
@@ -109,9 +118,9 @@ def main():
         subprocess.call([
             "ld.lld",
             args.o + ".o",
-            f"{get_absolute_sdk_path()}/../nocturneos/lib/libNocturneCrti.a",
-            f"{get_absolute_sdk_path()}/../nocturneos/lib/libNocturneC.a",
-            f"-T{get_absolute_sdk_path()}/../nocturneos/share/link.ld",
+            f"{get_absolute_sdk_path()}/lib/libNocturneCrti.a",
+            f"{get_absolute_sdk_path()}/lib/libNocturneC.a",
+            f"-T{get_absolute_sdk_path()}/share/link.ld",
             "-o",
             args.o
         ])

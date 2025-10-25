@@ -1,5 +1,5 @@
-#include <tty.h>
+#include <printf.h>
 
-void _start(void) {
-    _tty_puts("Hello, world!\n");
+void main(void) {
+    printf("Hello, world!\n");
 }
