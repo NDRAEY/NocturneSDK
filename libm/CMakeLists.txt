@@ -10,6 +10,7 @@ set(FILES
     src/exp.c
     src/log.c
     src/math.c
+    src/integral.c
     src/modf.c
     src/pow.c
     src/sin.c
@@ -21,7 +22,7 @@ set(CMAKE_ASM_FLAGS "-m32 -g")
 set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libm/include -I${CMAKE_SOURCE_DIR}/libc/include")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
-add_library(NocturneM STATIC ${FILES})
+add_library(m STATIC ${FILES})
 
-install(FILES ${CMAKE_BINARY_DIR}/libm/libNocturneM.a DESTINATION nocturneos/lib/)
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/libm/include/ DESTINATION nocturneos/include)
+install(FILES ${CMAKE_BINARY_DIR}/libm/libm.a DESTINATION i386-nocturne/lib/)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/libm/include/ DESTINATION i386-nocturne/include)

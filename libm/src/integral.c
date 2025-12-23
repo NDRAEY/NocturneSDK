@@ -1,4 +1,5 @@
 #include "common.h"
+#include "stddef.h"
 
 double trapezoidal_rule(double (*f)(double), double a, double b, size_t steps) {
     double h = (b - a) / steps;

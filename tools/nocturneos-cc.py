@@ -1,10 +1,19 @@
 #!/usr/bin/python3
 
+# The compiler wrapper by NDRAEY (c) 2025.
+
+# WARNING: This file is deprecated, use https://github.com/NDRAEY/binutils-gdb-noct and https://github.com/NDRAEY/gcc-noct instead.
+
 import os
 import argparse
 import pathlib
 import subprocess
 
+def find_compiler() -> str:
+    return "gcc"
+
+def find_linker() -> str:
+    return "ld.lld"
 
 # Get current absolute path
 def get_absolute_sdk_path():
@@ -29,7 +38,7 @@ def generate_compiler_commands_from_settings(settings: dict[str, str],
     commands += ["-ffreestanding", "-mno-red-zone", "-fno-stack-protector"]
 
     # Default argument, used everywhere
-    commands += [f"-I{get_absolute_sdk_path()}/../nocturneos/include"]
+    commands += [f"-I{get_absolute_sdk_path()}/../i386-nocturne/include"]
 
     commands += ["-c"]
     commands += ["-fno-pic"]
@@ -68,7 +77,7 @@ def main():
 
     # Inject custom arguments
 
-    cc = "gcc"
+    cc = find_compiler()
 
     settings: dict[str, str] = {
         "compiler_flavor": cc,
@@ -91,9 +100,6 @@ def main():
                     input_file=args.input_file,
                     output_file=args.o)
 
-    if args.verbose:
-        print("COMMAND =>", cc, *nargs)
-
     commands: list[str] = [cc,
                              *nargs,
                              args.flags,
@@ -104,28 +110,35 @@ def main():
 
     commands = [command for command in commands if command]
 
-    print(commands)
+    if args.verbose:
+        print("[!] Running compiler:", *commands)
+
     # Run compiler
     status = subprocess.call(commands)
 
     if status != 0:
-        print("Compilation failed")
+        print("Compilation failed!")
         exit(status)
 
     add_libs: list[str] = args.linclude.split(',')
 
     # If we are compiling into a program instead of object, we run linker then.
     if not settings["is_output_object"]:
-        subprocess.call([
-            "ld.lld",
+        linker_commands = [
+            find_linker(),
             args.o + ".o",
-            f"{get_absolute_sdk_path()}/lib/libNocturneCrti.a",
-            f"{get_absolute_sdk_path()}/lib/libNocturneC.a",
+            f"{get_absolute_sdk_path()}/lib/crt0.o",
+            f"{get_absolute_sdk_path()}/lib/libc.a",
             *[f"{get_absolute_sdk_path()}/lib/libNocturne{lib}.a" for lib in add_libs if lib],
             f"-T{get_absolute_sdk_path()}/share/link.ld",
             "-o",
             args.o
-        ])
+        ]
+
+        if args.verbose:
+            print("Running linker:", *linker_commands)
+
+        subprocess.call(linker_commands)
 
         # And remove the object file.
         os.remove(args.o + ".o")
