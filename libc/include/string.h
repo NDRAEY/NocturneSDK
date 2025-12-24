@@ -1,11 +1,9 @@
-#ifndef SAYORISDK_STRING_H
-#define SAYORISDK_STRING_H
-
 #pragma once
 
+#include <stdbool.h>
 #include "stddef.h"
 
-SAYORI_INLINE bool isdigit(char a) {
+_INLINE bool isdigit(char a) {
     return a >= '0' && a <= '9';
 }
 
@@ -13,7 +11,6 @@ bool isalnum(char c);
 bool isspace(char c);
 bool isUTF(char c);
 bool isSymbol(char c);
-uint32_t SymConvert(char c, char c1, char c2);
 uint32_t UTFConvert(char c, char c1);
 size_t strlen(const char *str);
 size_t mb_strlen(const char *str);
@@ -47,8 +44,3 @@ bool isnumberstr(char* a);
 size_t strcount(const char* string, char character);
 char* strstr(const char* haystack, const char* needle);
 unsigned long strtoul(const char* str, char** endptr, int base);
-#endif //SAYORISDK_STRING_H
-
-#ifdef SAYORISDK_MATH_H
-double strtod(const char* str, char** endptr);
-#endif //SAYORISDK_MATH_H
