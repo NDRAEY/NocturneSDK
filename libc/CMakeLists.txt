@@ -21,16 +21,16 @@ set(FILES
         src/mouse.c
 )
 
+include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
+
 set(CMAKE_ASM_FLAGS "-m32 -g")
-set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libc/include -I${CMAKE_SOURCE_DIR}/libm/include")
+set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(crt0 OBJECT ${RUNTIME_INIT_FILES})
 add_library(c STATIC ${FILES})
 
-configure_file("${CMAKE_BINARY_DIR}/libc/CMakeFiles/crt0.dir/src/crt0.S.o" ${CMAKE_BINARY_DIR}/libc/crt0.o COPYONLY)
-
-install(FILES ${CMAKE_BINARY_DIR}/libc/crt0.o DESTINATION i386-nocturne/lib/)
+install(FILES ${CMAKE_BINARY_DIR}/libc/CMakeFiles/crt0.dir/src/crt0.S.o DESTINATION i386-nocturne/lib/ RENAME crt0.o)
 install(FILES ${CMAKE_BINARY_DIR}/libc/libc.a DESTINATION i386-nocturne/lib/)
 install(FILES ${CMAKE_SOURCE_DIR}/common/link.ld DESTINATION i386-nocturne/share/)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/libc/include/ DESTINATION i386-nocturne/include)

@@ -18,8 +18,10 @@ set(FILES
     src/tan.c
 )
 
+include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
+
 set(CMAKE_ASM_FLAGS "-m32 -g")
-set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector -I${CMAKE_SOURCE_DIR}/libm/include -I${CMAKE_SOURCE_DIR}/libc/include")
+set(CMAKE_C_FLAGS "-nostdlib -nostdinc -Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(m STATIC ${FILES})
