@@ -19,12 +19,30 @@ set(FILES
         src/syscall.c
         src/sprintf.c
         src/mouse.c
+        src/string/atoi.c
+        src/string/memcmp.c
+        src/string/memmove.c
+        src/string/strchr.c
+        src/string/strcpy.c
+        src/string/strncmp.c
+        src/string/strspn.c
+        src/string/strtolower.c
+        src/string/strver.c
+        src/string/itoa.c
+        src/string/memcpy.c
+        src/string/memset.c
+        src/string/strcmp.c
+        src/string/strlen.c
+        src/string/strncpy.c
+        src/string/strstr.c
+        src/string/strtoupper.c
+        src/string/substr.c
 )
 
 include(${CMAKE_SOURCE_DIR}/cmake/includes.cmake)
 
 set(CMAKE_ASM_FLAGS "-m32 -g")
-set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O0 -m32 -march=i386 -ffreestanding -static -fno-stack-protector ${C_INCLUDES}")
+set(CMAKE_C_FLAGS "-Wall -Wextra -fno-pic -ggdb3 -O2 -m32 -march=i386 -ffreestanding -static -fno-stack-protector ${C_INCLUDES}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,-static")
 
 add_library(crt0 OBJECT ${RUNTIME_INIT_FILES})
